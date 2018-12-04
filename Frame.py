@@ -3,7 +3,7 @@ import tkinter as tk
 
 #创建顶层窗口并初始化
 root = tk.Tk()
-root.title('Menubar')
+root.title('Frame')
 root.geometry('200x200')
 #创建标签
 l = tk.Label(root, text='on the window')
