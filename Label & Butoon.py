@@ -38,7 +38,7 @@ y = hs/2 - 100/2
 root.geometry('200x100+%d+%d'% (x, y))
 
 #设置窗口大小是否可变化，mac中一个为True后，均可变
-root.resizable(width=False, height=False)
+root.resizable(width=True, height=False)
 #定义变量，必须在窗口创建完后
 var = tk.StringVar()
 #创建标签组件
