@@ -3,7 +3,7 @@ import tkinter as tk
 
 #创建顶层窗口并初始化
 root = tk.Tk()
-root.title('Entry & Text')
+root.title('Listbox')
 root.geometry('200x200')
 
 #定义变量

@@ -24,7 +24,7 @@ def hit_me():
 #创建顶级窗口
 root  = tk.Tk()
 #设置窗口标题
-root.title('Label&Button')
+root.title('Label & Button')
 
 #使窗口居中显示
 #获取屏幕宽
