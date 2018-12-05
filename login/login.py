@@ -81,6 +81,7 @@ def window_sign_up():
 	y = hs/2 - 200/2
 	#设置窗口尺寸，格式：长x宽+x偏移量+y偏移量，必须为整数。偏移量指距离屏幕左上角
 	root_sign_up.geometry('350x200+%d+%d'% (x, y))
+	root_sign_up.resizable(False, False)
 	
 	tk.Label(root_sign_up, text='用户名：').place(x=80, y=40, anchor='center')
 	tk.Label(root_sign_up, text='密码：').place(x=80, y=80, anchor='center')
