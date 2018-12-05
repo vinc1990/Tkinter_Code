@@ -4,7 +4,14 @@ import pickle
 
 root = tk.Tk()
 root.title('登录')
-root.geometry('450x300')
+ws = root.winfo_screenwidth()
+#获取屏幕高
+hs = root.winfo_screenheight()
+#计算窗口左上角的点宽和高的偏移量
+x = ws/2 - 450/2
+y = hs/2 - 300/2
+#设置窗口尺寸，格式：长x宽+x偏移量+y偏移量，必须为整数。偏移量指距离屏幕左上角
+root.geometry('450x300+%d+%d'% (x, y))
 root.resizable(False, False)
 
 canvas = tk.Canvas(root, width=450, height=200)
@@ -44,13 +51,59 @@ def login():
 	else:
 		is_sign_up = messagebox.askyesno('注册','您的用户名不存在，是否现在注册？')
 		if is_sign_up:
-			sign_up()
+			window_sign_up()
+			
 
-def sign_up():
-	pass
+def window_sign_up():
+	def sign_up():
+		np = new_pwd.get()
+		npf = new_pwd_confirm.get()
+		nn = new_name.get()
+		with open('user_info.pickle', 'rb') as usr_file:
+			exist_usr_info = pickle.load(usr_file)
+		if np != npf:
+			messagebox.showerror('错误', '您两次输入的密码不一致，请重新输入！')
+		elif nn in exist_usr_info:
+			messagebox.showerror('错误', '用户名已经存在，请重新输入！')
+		else:
+			exist_usr_info[nn] = np
+			with open('user_info.pickle', 'wb') as usr_file:
+				pickle.dump(exist_usr_info, usr_file)
+			messagebox.showinfo('恭喜', '注册成功！')
+			root_sign_up.destroy()
+	root_sign_up = tk.Toplevel(root)
+	root_sign_up.title('注册')
+	ws = root.winfo_screenwidth()
+	#获取屏幕高
+	hs = root.winfo_screenheight()
+	#计算窗口左上角的点宽和高的偏移量
+	x = ws/2 - 350/2
+	y = hs/2 - 200/2
+	#设置窗口尺寸，格式：长x宽+x偏移量+y偏移量，必须为整数。偏移量指距离屏幕左上角
+	root_sign_up.geometry('350x200+%d+%d'% (x, y))
+	
+	tk.Label(root_sign_up, text='用户名：').place(x=80, y=40, anchor='center')
+	tk.Label(root_sign_up, text='密码：').place(x=80, y=80, anchor='center')
+	tk.Label(root_sign_up, text='确认密码：').place(x=80, y=120, anchor='center')
+        
+	new_name = tk.StringVar()
+	new_name.set('example@python.com')
+	entry_new_name = tk.Entry(root_sign_up, textvariable=new_name, width=25)
+	entry_new_name.place(x=200, y=40, anchor='center')
+
+	new_pwd = tk.StringVar()
+	entry_new_pwd = tk.Entry(root_sign_up, textvariable=new_pwd, show='*', width=25)
+	entry_new_pwd.place(x=200, y=80, anchor='center')
+
+	new_pwd_confirm = tk.StringVar()
+	entry_new_pwd_confirm = tk.Entry(root_sign_up, textvariable=new_pwd_confirm, show='*', width=25)
+	entry_new_pwd_confirm.place(x=200, y=120, anchor='center')
+	
+	btn_comfirm_sign_up = tk.Button(root_sign_up, text='注册', width=8, command=sign_up)
+	btn_comfirm_sign_up.place(x=140, y=140)
 
 btn_login = tk.Button(root, text='登录', command=login, width=8)
 btn_login.place(x=170, y=250, anchor='center')
-btn_sign_up = tk.Button(root, text='注册', command=sign_up, width=8)
+btn_sign_up = tk.Button(root, text='注册', command=window_sign_up, width=8)
 btn_sign_up.place(x=290, y=250, anchor='center')
 root.mainloop()
