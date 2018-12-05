@@ -61,7 +61,9 @@ def window_sign_up():
 		nn = new_name.get()
 		with open('user_info.pickle', 'rb') as usr_file:
 			exist_usr_info = pickle.load(usr_file)
-		if np != npf:
+		if not(nn and np):
+			messagebox.showerror('错误', '用户名和密码不能为空！')
+		elif np != npf:
 			messagebox.showerror('错误', '您两次输入的密码不一致，请重新输入！')
 		elif nn in exist_usr_info:
 			messagebox.showerror('错误', '用户名已经存在，请重新输入！')
@@ -83,22 +85,22 @@ def window_sign_up():
 	root_sign_up.geometry('350x200+%d+%d'% (x, y))
 	root_sign_up.resizable(False, False)
 	
-	tk.Label(root_sign_up, text='用户名：').place(x=80, y=40, anchor='center')
-	tk.Label(root_sign_up, text='密码：').place(x=80, y=80, anchor='center')
-	tk.Label(root_sign_up, text='确认密码：').place(x=80, y=120, anchor='center')
+	tk.Label(root_sign_up, text='用户名：').place(x=62, y=40, anchor='center')
+	tk.Label(root_sign_up, text='密码：').place(x=68, y=80, anchor='center')
+	tk.Label(root_sign_up, text='确认密码：').place(x=55, y=120, anchor='center')
         
 	new_name = tk.StringVar()
 	new_name.set('example@python.com')
 	entry_new_name = tk.Entry(root_sign_up, textvariable=new_name, width=25)
-	entry_new_name.place(x=200, y=40, anchor='center')
+	entry_new_name.place(x=205, y=40, anchor='center')
 
 	new_pwd = tk.StringVar()
 	entry_new_pwd = tk.Entry(root_sign_up, textvariable=new_pwd, show='*', width=25)
-	entry_new_pwd.place(x=200, y=80, anchor='center')
+	entry_new_pwd.place(x=205, y=80, anchor='center')
 
 	new_pwd_confirm = tk.StringVar()
 	entry_new_pwd_confirm = tk.Entry(root_sign_up, textvariable=new_pwd_confirm, show='*', width=25)
-	entry_new_pwd_confirm.place(x=200, y=120, anchor='center')
+	entry_new_pwd_confirm.place(x=205, y=120, anchor='center')
 	
 	btn_comfirm_sign_up = tk.Button(root_sign_up, text='注册', width=8, command=sign_up)
 	btn_comfirm_sign_up.place(x=140, y=140)
